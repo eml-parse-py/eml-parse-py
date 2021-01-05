@@ -10,11 +10,7 @@ from email.policy import default
 
 
 class ExtractHeader:
-    """
 
-    Global Vars...
-
-    """
     _crlf = r'\r\n'
     _lf = r'\n'
 
