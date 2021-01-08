@@ -10,7 +10,7 @@ SMTP message sending functionality planned... *
 
 ## How to use:
 
-If you're utilising the CLI to manipulation mails here is how to do that:
+How to manipulate mails on CLI:
 
 `` python app.py [OPTION] [FILE]``
 
@@ -20,17 +20,17 @@ Print the header from address ``` --hfrom /path/to/file.eml```
 
 Print the header to address ```- -hto /path/to/file.eml ```
 
-Print the subject of the msg ``` --hsubject /path/to/file.eml```
+Print the subject of the Msg ``` --hsubject /path/to/file.eml```
 
 Print the Reply-to address of the msg ``` --hreply-to /path/to/file.eml```
 
 Print the Msg ID of the Msg  ```--hmsg-id /path/to/file.eml ```
 
-Print the date of the msg:  ```--hdate /path/to/file.eml ```
+Print the date of the Msg:  ```--hdate /path/to/file.eml ```
 
 Print the full Msg out: ``` --file /path/to/file.eml```
 
-Create HTML file comprised of the attributes found in the eml : ```--makehtml /path/to/file.eml``` * Functionality is WIP.. 
+Create HTML file comprised of the attributes found in the eml : ```--makehtml /path/to/file.eml:``` * Functionality is WIP.. 
 
 
 
