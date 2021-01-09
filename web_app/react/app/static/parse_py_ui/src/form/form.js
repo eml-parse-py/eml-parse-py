@@ -23,16 +23,32 @@ class Form extends React.Component {
         const formData = new FormData();
         event.preventDefault();
         formData.append(
+            "file",
             this.state.file,
             this.state.file.name
         );
 
-        axios.post("/uploadfile", formData).then(
+        axios.post("/uploadfile", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(
             (response) => {
                 const res = response.data
                 console.log(res);
-            }, (error) => {
-                console.log(error);
+            }).catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request)
+                {
+                    console.log(error.request);
+
+                } else {
+                    console.log('Error', error.message);
+
+                }
             }
         );
 
@@ -69,7 +85,7 @@ class Form extends React.Component {
     render() {
         return (
             <form>
-                <input type="file" name="file" onChange={this.onUploadHandler}/>
+                <input type="file" name="file" onChange={this.onUploadHandler} accept="message/rfc822"/>
                 <button onClick={this.handleClick}> Upload</button>
                 {this.fileInfo()}
             </form>
