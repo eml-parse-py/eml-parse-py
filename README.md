@@ -22,7 +22,7 @@ Print the header to address ```- -hto /path/to/file.eml ```
 
 Print the subject of the Msg ``` --hsubject /path/to/file.eml```
 
-Print the Reply-to address of the msg ``` --hreply-to /path/to/file.eml```
+Print the Reply-to address of the Msg ``` --hreply-to /path/to/file.eml```
 
 Print the Msg ID of the Msg  ```--hmsg-id /path/to/file.eml ```
 
