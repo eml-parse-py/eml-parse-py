@@ -26,20 +26,22 @@ def main():
 
     htm = create_html.CreateHtml()
 
+    headers = ['from', 'to', 'subject', 'reply-to', 'message-id', 'date']
+
     if args.hfrom:
-        extr.msg_header_from(args.hfrom)
+        extr.ret_header(args.file, headers[0])
     elif args.file:
-        extr.open_msg_file(args.file)
+        extr.ret_header(args.file, headers[1])
     elif args.hto:
-        extr.msg_header_to(args.hto)
+        extr.ret_header(args.file, headers[2])
     elif args.hsubject:
-        extr.msg_header_subject(args.hsubject)
+        extr.ret_header(args.file, headers[3])
     elif args.hreplyto:
-        extr.msg_header_reply_to(args.hreplyto)
+        extr.ret_header(args.file, headers[4])
     elif args.hmsgid:
-        extr.msg_header_msg_id(args.hmsgid)
+        extr.ret_header(args.file, headers[5])
     elif args.hdate:
-        extr.msg_header_date(args.hdate)
+        extr.ret_header(args.file, headers[6])
     elif args.makehtml:
         extr.htm
     else:

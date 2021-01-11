@@ -6,6 +6,8 @@ class Form extends React.Component {
         super(props);
         this.state = {
             file: null,
+            msg_data: [],
+            hasError: false
         };
         this.onUploadHandler = this.onUploadHandler.bind(this)
         this.handleClick = this.handleClick.bind(this)
@@ -18,6 +20,16 @@ class Form extends React.Component {
 
     }
 
+    static getDerivedStateFromError(error) {
+        // Update state so the next render will show the fallback UI.
+        return {hasError: true};
+    }
+
+
+    componentDidCatch(error, errorInfo) {
+        // You can also log the error to an error reporting service
+        console.log(error, errorInfo);
+    }
 
     handleClick(event) {
         const formData = new FormData();
@@ -36,13 +48,18 @@ class Form extends React.Component {
             (response) => {
                 const res = response.data
                 console.log(res);
+                axios.get("/fetchmetadata").then((response) => {
+                        const result = response.data
+                        this.setState({msg_data: result})
+                    }
+                );
+
             }).catch((error) => {
                 if (error.response) {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
-                } else if (error.request)
-                {
+                } else if (error.request) {
                     console.log(error.request);
 
                 } else {
@@ -82,12 +99,37 @@ class Form extends React.Component {
     }
 
 
+    msg_Data() {
+        if (this.state.msg_data) {
+            return (
+                <div>
+                    <p>
+                        Message headers: <br/>{this.state.msg_data}
+                    </p>
+                </div>
+
+            );
+        } else {
+            return (
+                <div>
+                    <p> Insert a file above </p>
+                </div>
+            );
+        }
+    }
+
+
     render() {
+        if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return <h1>Something went wrong.</h1>;
+        }
         return (
             <form>
                 <input type="file" name="file" onChange={this.onUploadHandler} accept="message/rfc822"/>
                 <button onClick={this.handleClick}> Upload</button>
                 {this.fileInfo()}
+                {this.msg_Data()}
             </form>
         );
     }
