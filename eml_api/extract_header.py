@@ -1,8 +1,8 @@
 """
 Author: Mark McMoran
 
-Purpose: Parsing SMTP message headers, for display purposes, it could provide 
-extensibility for purposes like tracing mail flow of a given message.
+Purpose: Parsing SMTP message headers, for display purposes,  providing
+extensibility like; tracing mail flow of a message.
 
 """
 from email.parser import BytesParser
@@ -23,5 +23,6 @@ class ExtractHeader:
 
     def header_gen(self, msg):
         _opened = self.open_msg_file(msg)
-        headers = str(_opened.keys()) + " " + str(_opened.items())
+
+        headers = str(_opened.values())
         return headers
