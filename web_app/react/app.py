@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from eml_api import extract_header
 
@@ -18,7 +18,7 @@ def header_construct():
     ex = extract_header.ExtractHeader()
     headers = ex.header_gen(file)
 
-    return headers
+    return jsonify(headers)
 
 
 if __name__ == "__main__":

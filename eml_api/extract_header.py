@@ -23,6 +23,5 @@ class ExtractHeader:
 
     def header_gen(self, msg):
         _opened = self.open_msg_file(msg)
-
-        headers = str(_opened.values())
+        headers = _opened.items()
         return headers
