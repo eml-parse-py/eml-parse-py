@@ -48,6 +48,7 @@ class Form extends React.Component {
             (response) => {
                 const res = response.data
                 console.log(res);
+                this.setState({file: res})
                 axios.get("/fetchmetadata").then((response) => {
                         const result = response.data
                         this.setState({msg_data: result})
@@ -84,8 +85,6 @@ class Form extends React.Component {
                         Last Modified:{" "}
                         {this.state.file.lastModifiedDate.toDateString()}
                     </p>
-
-
                 </div>
             );
         } else {
@@ -100,38 +99,50 @@ class Form extends React.Component {
 
 
     msg_Data() {
-        if (this.state.msg_data) {
+
+        return (
+            <div id={"msg-headers"}>
+                {(this.state.msg_data || []).map(item => (
+
+                    <ul key={item}>
+                        <ul> {item[0]}: {item[1]}</ul>
+                    </ul>)
+                )}
+
+            </div>
+
+        );
+
+    }
+
+
+    render() {
+        const file = this.state.file;
+
+        if (this.state.hasError) {
+
             return (
                 <div>
-                    <p>
-                        Message headers: <br/>{this.state.msg_data}
-                    </p>
+                    <h1> Whoops... Something went wrong.</h1>
+
                 </div>
 
             );
         } else {
             return (
-                <div>
-                    <p> Insert a file above </p>
-                </div>
+                <form onSubmit={this.handleClick}>
+
+                    <input type="file" name="file" required={"file"} onChange={this.onUploadHandler}
+                           accept="message/rfc822"/>
+                    <button type="submit"> Upload</button>
+                    {file ? this.fileInfo()
+                        : this.msg_Data()}
+
+                </form>
+
             );
         }
-    }
 
-
-    render() {
-        if (this.state.hasError) {
-            // You can render any custom fallback UI
-            return <h1>Something went wrong.</h1>;
-        }
-        return (
-            <form>
-                <input type="file" name="file" onChange={this.onUploadHandler} accept="message/rfc822"/>
-                <button onClick={this.handleClick}> Upload</button>
-                {this.fileInfo()}
-                {this.msg_Data()}
-            </form>
-        );
     }
 
 }
