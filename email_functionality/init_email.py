@@ -1,15 +1,15 @@
 import SendEmail
-import os
 
 
 def main():
-    send_eml = os.environ['sending_eml']
-    rcpt_eml = os.environ['rcpt_eml']
-    passwd = os.environ['passwd']
-    subj = "Testing..."
-    body = "blah"
+    fromAddr = "email"
+    toAddr = "email"
+    passwd = "password"
+    subject = "Testing..."
+    attachment = "test.html"
+    text = "blah"
 
-    snd = SendEmail.SendEmail(send_eml, rcpt_eml, subj, body, passwd)
+    snd = SendEmail.SendEmail(fromAddr, toAddr, subject, text, attachment, passwd)
 
     snd.send_msg()
 
