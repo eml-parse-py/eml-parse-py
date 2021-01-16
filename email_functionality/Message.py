@@ -7,33 +7,27 @@ from email.mime.text import MIMEText
 class Message:
 
     def __init__(self, _from, to, subject, body, attachment):
-        self.__from = _from
+        self._from_ = _from
         self._to = to
         self._subject = subject
         self._body = body
         self._attachment = attachment
 
-    def message_text(self, body):
-        content = body
-        return content
-
-    def msg_builder(self, _from, to, subject, body, part1):
+    def msg_builder(self):
         message = MIMEMultipart()
-        message["From"] = _from
-        message["To"] = to
-        message["Subject"] = subject
-        message.attach(MIMEText(body, "plain"))
-        message.attach(part1)
-
+        message["From"] = self._from_
+        message["To"] = self._to
+        message["Subject"] = self._subject
+        attach = self.attach_files()
+        message.attach(MIMEText(self._body, "plain"))
+        message.attach(attach)
         return message
 
-    def attach_files(self, filename):
-        with open(filename, "rb") as attach:
+    def attach_files(self):
+        with open(self._attachment, "rb") as attach:
             part = MIMEBase("text", "html")
             part.set_payload(attach.read())
             encoders.encode_base64(part)
-
             part.add_header("Content-Disposition",
-                            f"attachment; filename= {filename}")
-
+                            f"attachment; filename= {self._attachment}")
             return part
