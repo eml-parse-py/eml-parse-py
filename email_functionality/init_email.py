@@ -3,7 +3,7 @@ import SendEmail
 
 def main():
     fromAddr = "email"
-    toAddr = "email
+    toAddr = "email"
     passwd = "password"
     subject = "Testing..."
     attachment = "test.html"
