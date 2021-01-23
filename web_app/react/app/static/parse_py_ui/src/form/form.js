@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SendEmail from "../smtp/SendEmail";
 
 class Form extends React.Component {
     constructor(props) {
@@ -7,17 +8,19 @@ class Form extends React.Component {
         this.state = {
             file: null,
             msg_data: [],
-            hasError: false
+            hasError: false,
+            recipient: ""
         };
         this.onUploadHandler = this.onUploadHandler.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleEmailField = this.handleEmailField.bind(this)
+        this.handleClickEmail = this.handleClickEmail.bind(this)
 
 
     }
 
     onUploadHandler(event) {
         this.setState({file: event.target.files[0]})
-
     }
 
     static getDerivedStateFromError(error) {
@@ -72,6 +75,11 @@ class Form extends React.Component {
 
     }
 
+    handleEmailField(event) {
+        this.setState({
+            recipient: event.target.value
+        });
+    }
 
     fileInfo() {
 
@@ -97,6 +105,30 @@ class Form extends React.Component {
         }
     }
 
+    handleClickEmail(event) {
+        const formData = new FormData();
+        event.preventDefault()
+        formData.append(
+            "text",
+            this.state.recipient,
+        );
+
+        axios.post("/sendemail", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(
+            (response) => {
+                const res = response.data.toString()
+                console.log(res);
+                // this.setState({recipient: res})
+
+            })
+
+
+
+    }
+
 
     msg_Data() {
 
@@ -108,6 +140,7 @@ class Form extends React.Component {
                         <ul> {item[0]}: {item[1]}</ul>
                     </ul>)
                 )}
+                <br/>
 
             </div>
 
@@ -117,8 +150,6 @@ class Form extends React.Component {
 
 
     render() {
-        const file = this.state.file;
-
         if (this.state.hasError) {
 
             return (
@@ -130,16 +161,19 @@ class Form extends React.Component {
             );
         } else {
             return (
-                <form onSubmit={this.handleClick}>
+                <div>
+                    <form>
 
-                    <input type="file" name="file" required={"file"} onChange={this.onUploadHandler}
-                           accept="message/rfc822"/>
-                    <button type="submit"> Upload</button>
-                    {file ? this.fileInfo()
-                        : this.msg_Data()}
+                        <input type="file" name="file" required={"file"} onChange={this.onUploadHandler}
+                               accept="message/rfc822"/>
+                        <button type="submit" onClick={this.handleClick}> Upload</button>
+                        {this.fileInfo()}
+                        {this.msg_Data()}
 
-                </form>
-
+                    </form>
+                    <SendEmail name={this.handleEmailField}
+                               clicked={this.handleClickEmail}/>
+                </div>
             );
         }
 

@@ -2,7 +2,7 @@ import smtplib
 import ssl
 import traceback
 
-from Message import Message
+from Flask.email_functionality.Message import Message
 
 
 class SendEmail(Message):
