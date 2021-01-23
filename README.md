@@ -37,13 +37,13 @@ Create HTML file comprised of the attributes found in the eml : ```--makehtml /p
 ## Technology stack in use:
 
 - Python 3.7 minimum
-- Flask API
+- Flask API (this is backend of the system)
 - ReactJS for the Frontend rendering...
 
 
 ### Requirements:
 
-- Python 3.7 or over.
+- Python at least 3.8
 - ReactJS 
 - Flask API
 
@@ -56,4 +56,14 @@ Create HTML file comprised of the attributes found in the eml : ```--makehtml /p
 
 ### To run:
 - ```flask run ```
-- If you've made changes make sure to run ```npm run build``` to get React changes updated, then re-run above.
+- ```npm run ``` this is the ReactJS  frontend
+
+### Sending Emails: 
+Another feature of the application; is that you can send an email by entering your email; and clicking SendEmail; a basic plain text email is sent.
+It is planned to supersede this to be a multi-part MIME message to allow rendering for other applications. 
+<br>
+ HTML file comprimising of a messages headeres is planned... The current ```test.html``` in use is placeholder for now, and will be superseded by a file named headers.html which will contain a nicely styled HTML file containing the headers.
+#### Pre-requesites: 
+- Make sure that the ```SendEmailObjAttributes.json``` file under ```Flask\email_functionality ``` has all the relevant fields filled... Don't fill the recipient one, It may be used for future purposes  in the application so I'm keeping it.
+
+
