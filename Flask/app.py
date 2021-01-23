@@ -30,7 +30,7 @@ def send_email():
         with open(SendEmailObj) as file:
             params = json.load(file)
             fromAddr = params["fromAddr"]
-            toAddr = params["toAddr"]
+            toAddr = request.form.get('text')
             subject = params["subject"]
             text = params["text"]
             attachment = os.path.abspath(f"email_functionality{os.sep}test.html")
@@ -40,7 +40,6 @@ def send_email():
 
     except FileExistsError as NoExist:
         print(NoExist)
-    data = request.form
 
     return ""
 
