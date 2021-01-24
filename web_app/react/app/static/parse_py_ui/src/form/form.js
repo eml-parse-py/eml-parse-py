@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import SendEmail from "../smtp/SendEmail";
+import Messagedata from "../msg/Messagedata";
+import PreUploadMessageData from "../msg/PreUploadMessageData";
 
 class Form extends React.Component {
     constructor(props) {
@@ -50,7 +52,6 @@ class Form extends React.Component {
         }).then(
             (response) => {
                 const res = response.data
-                console.log(res);
                 this.setState({file: res})
                 axios.get("/fetchmetadata").then((response) => {
                         const result = response.data
@@ -76,34 +77,19 @@ class Form extends React.Component {
     }
 
     handleEmailField(event) {
-        this.setState({
-            recipient: event.target.value
-        });
-    }
-
-    fileInfo() {
-
-        if (this.state.file) {
-            return (
-                <div>
-                    <h4>File Details:</h4>
-                    <p>File Name: {this.state.file.name}</p>
-                    <p>Content type / MIME Type: {this.state.file.type}</p>
-                    <p>
-                        Last Modified:{" "}
-                        {this.state.file.lastModifiedDate.toDateString()}
-                    </p>
-                </div>
-            );
+        if (event.target.value.match("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|" +
+            "\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" +
+            "|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|" +
+            "[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|" +
+            "\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])$") != null && this.state.file != null) {
+            this.setState({recipient: event.target.value});
         } else {
-            return (
-                <div>
-                    <br/>
-                    <h4>Upload a file before clicking upload</h4>
-                </div>
+            this.render(
+                <h1> Please upload and email before sending email.</h1>
             );
         }
     }
+
 
     handleClickEmail(event) {
         const formData = new FormData();
@@ -126,26 +112,6 @@ class Form extends React.Component {
             })
 
 
-
-    }
-
-
-    msg_Data() {
-
-        return (
-            <div id={"msg-headers"}>
-                {(this.state.msg_data || []).map(item => (
-
-                    <ul key={item}>
-                        <ul> {item[0]}: {item[1]}</ul>
-                    </ul>)
-                )}
-                <br/>
-
-            </div>
-
-        );
-
     }
 
 
@@ -153,27 +119,38 @@ class Form extends React.Component {
         if (this.state.hasError) {
 
             return (
-                <div>
+                <>
                     <h1> Whoops... Something went wrong.</h1>
 
-                </div>
+                </>
 
             );
         } else {
             return (
-                <div>
+                <>
                     <form>
-
-                        <input type="file" name="file" required={"file"} onChange={this.onUploadHandler}
+                        <input type="file"
+                               name="file"
+                               required={"file"}
+                               onChange={this.onUploadHandler}
                                accept="message/rfc822"/>
-                        <button type="submit" onClick={this.handleClick}> Upload</button>
-                        {this.fileInfo()}
-                        {this.msg_Data()}
+                        <button
+                            type="submit"
+                            onClick={this.handleClick}> Upload
+                        </button>
+                        <PreUploadMessageData
+                            file={this.state.file}/>
+                        <Messagedata
+                            msg_data={this.state.msg_data}/>
 
                     </form>
-                    <SendEmail name={this.handleEmailField}
-                               clicked={this.handleClickEmail}/>
-                </div>
+
+                    <SendEmail
+                        clicked={this.handleClickEmail}
+                        validate={this.handleEmailField}/>
+
+
+                </>
             );
         }
 
