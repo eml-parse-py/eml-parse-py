@@ -12,12 +12,13 @@ const SendEmail = (props) => {
                 name={"RcptEmail"}
                 placeholder={"youremail@yourdomain.com"
                 }
-                onChange={props.name}
+                onChange={props.validate}
             >
             </input>
             <button type="submit"
                     name={"SendEmail"}
-                    onClick={props.clicked}>
+                    onClick={props.clicked}
+            >
                 Send email
             </button>
         </div>
