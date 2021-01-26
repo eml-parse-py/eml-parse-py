@@ -35,7 +35,8 @@ def send_email():
             text = params["text"]
             attachment = os.path.abspath(f"email_functionality{os.sep}test.html")
             passwd = params["passwd"]
-            snd = SendMessage(fromAddr, toAddr, subject, text, attachment, passwd)
+            snd = SendMessage.SendMessage(fromAddr, toAddr, subject, text, attachment, passwd)
+
             snd.send_msg()
 
     except FileExistsError as NoExist:
