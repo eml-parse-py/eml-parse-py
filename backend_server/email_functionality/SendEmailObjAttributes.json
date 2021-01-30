@@ -1,8 +1,0 @@
-{
-  "fromAddr": "markmcmtesting@gmail.com",
-  "toAddr": "",
-  "subject": "Analysed Email Headers Attached.",
-  "text" : "Thank you for using the Eml Parse Py Email Analysis Application.",
-  "attachment": "test.html",
-  "passwd": "G3res!Tree"
-}
