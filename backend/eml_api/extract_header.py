@@ -7,6 +7,7 @@ extensibility like; tracing mail flow of a message, this is possible through gen
 from email.parser import BytesParser
 from email.policy import default
 import jinja2
+from pathlib import Path
 
 
 class ExtractHeader:
@@ -26,9 +27,14 @@ class ExtractHeader:
         headers = _opened.items()
         return headers
 
-    def craft_html(self, html_attrs):
-        jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
+    def craft_html(self, msg):
+        x = Path("C:/Users/markm/Desktop/Programming Projects/eml-parse-py/backend/eml_api/templates")
+        jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(x))
         template = jinja_env.get_template('message_details.html')
-        crafted_html = template.render(html_attrs)
-        with open("AnalysedHeaders.html", "w") as f:
+        html_attrs = self.header_gen(msg)
+        jin_pass_thru = {
+            'msg_headers': html_attrs
+        }
+        crafted_html = template.render(jin_pass_thru)
+        with open("eml_api/AnalysedHeaders.html", "w") as f:
             f.write(crafted_html)

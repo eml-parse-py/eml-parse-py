@@ -4,14 +4,18 @@
     <head>
         <meta charset="UTF-8">
         <title>{{ title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 {% endblock %}
 <body>
-{% block content %}{% endblock %}
-<div id="footer">
-    {% block footer %}
-        <a> 2021 Eml Parse Py  </a>.
+<main>
+    {% block content %}
     {% endblock %}
-</div>
+</main>
+{#<div id="footer">#}
+{#    {% block footer %}#}
+{#        <a> 2021 Eml Parse Py </a>.#}
+{#    {% endblock %}#}
+{#</div>#}
 </body>
 </html>
