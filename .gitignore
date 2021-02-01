@@ -130,3 +130,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Could contain sensitive msg headers, so omitting from git versioning..
+backend/eml_api/AnalysedHeaders.html
