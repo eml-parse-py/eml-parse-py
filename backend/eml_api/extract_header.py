@@ -2,11 +2,11 @@
 Author: Mark McMoran
 
 Purpose: Parsing SMTP message headers, for display purposes,  providing
-extensibility like; tracing mail flow of a message.
-
+extensibility like; tracing mail flow of a message, this is possible through generation of a HTML file.
 """
 from email.parser import BytesParser
 from email.policy import default
+import jinja2
 
 
 class ExtractHeader:
@@ -25,3 +25,14 @@ class ExtractHeader:
         _opened = self.open_msg_file(msg)
         headers = _opened.items()
         return headers
+
+    def craft_html(self, msg):
+        jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader("eml_api/templates"))
+        template = jinja_env.get_template('message_details.html')
+        html_attrs = self.header_gen(msg)
+        jin_pass_thru = {
+            'msg_headers': html_attrs
+        }
+        crafted_html = template.render(jin_pass_thru)
+        with open("eml_api/AnalysedHeaders.html", "w") as f:
+            f.write(crafted_html)

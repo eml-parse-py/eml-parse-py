@@ -24,7 +24,7 @@ def main():
     args = _parsr.parse_args()
     extr = extract_header.ExtractHeader()
 
-    htm = create_html.CreateHtml()
+    # htm = create_html
 
     headers = ['from', 'to', 'subject', 'reply-to', 'message-id', 'date']
 

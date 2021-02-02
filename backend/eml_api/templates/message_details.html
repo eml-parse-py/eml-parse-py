@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important {
+            color: #4c802c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(to right top, #d84f0d, #da4a4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+
+            display: flex;
+
+            margin: 2rem 0rem;
+            padding: 2rem;
+
+            justify-content: space-between;
+            border: none;
+        }
+
+        td, th {
+            text-align: left;
+            padding: 8px;
+
+        }
+
+
+        #footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
+
+        #msg-headers-sub-container {
+            margin: 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+
+        #msg-headers-container {
+            min-height: 80vh;
+            width: 80%;
+            background: linear-gradient(
+                    to right bottom,
+                    rgba(255, 255, 255, 0.80),
+                    rgba(255, 255, 255, 0.68)
+            );
+            border-radius: 2rem;
+            z-index: 2;
+            backdrop-filter: blur(2rem);
+            display: flex;
+        }
+
+        #msg-header-desc {
+            margin-bottom: 2.5rem;
+
+        }
+
+
+        @media only screen and (max-width: 600px) {
+            body {
+                width: 75%
+            }
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section id="msg-headers-container">
+
+        <div id="msg-headers-sub-container">
+            <h3> Message headers:</h3>
+
+            <table cellspacing="0" cellpadding="0">
+                {% for k, v in msg_headers %}
+                    <tr>
+                        <td>{{ k }}</td>
+                        <td>{{ v }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        </div>
+
+
+    </section>
+
+
+
+{% endblock %}

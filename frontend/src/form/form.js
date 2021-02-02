@@ -137,7 +137,6 @@ class Form extends React.Component {
             return (
                 <>
                     <h1> Whoops... Something went wrong.</h1>
-
                 </>
 
             );
@@ -163,7 +162,7 @@ class Form extends React.Component {
 
                     <SendEmail
                         clicked={this.handleClickEmail}
-                        validate={this.handleEmailField}/>
+                        validate={this.handleEmailField} />
 
 
                 </>
