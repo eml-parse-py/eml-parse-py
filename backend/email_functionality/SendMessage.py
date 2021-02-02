@@ -2,7 +2,7 @@ import smtplib
 import ssl
 import traceback
 
-from email_functionality.Message import Message
+from .Message import Message
 
 
 class SendMessage(Message):
