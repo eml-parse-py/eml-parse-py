@@ -6,6 +6,7 @@ from eml_api import extract_header
 
 import json
 import os
+from pathlib import Path
 
 app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
 CORS(app)
@@ -14,7 +15,8 @@ eml_file = "message.eml"
 
 @app.route("/uploadfile", methods=["POST"])
 def handle_file_upload():
-    file = request.files['file'].save(dst=os.path.abspath("message.eml"))
+    # os.path.abspath("message.eml")
+    file = request.files['file'].save(dst=eml_file)
     return ""
 
 
@@ -41,7 +43,7 @@ def send_email():
                 toAddr = request.form.get('text')
                 subject = params["subject"]
                 text = params["text"]
-                attachment = os.path.abspath(f"eml_api{os.sep}AnalysedHeaders.html")
+                attachment = "eml_api\AnalysedHeaders.html"
                 passwd = params["passwd"]
                 snd = SendMessage(fromAddr, toAddr, subject, text, attachment, passwd)
                 snd.send_msg()
