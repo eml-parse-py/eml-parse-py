@@ -3,8 +3,10 @@ import axios from 'axios';
 import SendEmail from "../smtp/SendEmail";
 import Messagedata from "../msg/Messagedata";
 import PreUploadMessageData from "../msg/PreUploadMessageData";
+import './form.css';
+import Form from 'react-bootstrap/Form';
 
-class Form extends React.Component {
+class FormInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -125,9 +127,6 @@ class Form extends React.Component {
         );
 
 
-
-
-
     }
 
 
@@ -143,28 +142,32 @@ class Form extends React.Component {
         } else {
             return (
                 <>
-                    <form>
-                        <input type="file"
-                               name="file"
-                               required={"file"}
-                               onChange={this.onUploadHandler}
-                               accept="message/rfc822"/>
-                        <button
-                            type="submit"
-                            onClick={this.handleClick}> Upload
-                        </button>
-                        <PreUploadMessageData
-                            file={this.state.file}/>
-                        <Messagedata
-                            msg_data={this.state.msg_data}/>
+                    <div id={"InputForm"}>
+                        <h2 id={"App-heading"}> Eml Parse Py</h2>
 
-                    </form>
+                        <Form>
+                            <input type="file"
+                                   name="file"
+                                   required={"file"}
+                                   onChange={this.onUploadHandler}
+                                   accept="message/rfc822"/>
+                            <button
+                                type="submit"
+                                onClick={this.handleClick}> Upload
+                            </button>
+                            <PreUploadMessageData
+                                file={this.state.file}/>
+                            <Messagedata
+                                msg_data={this.state.msg_data}/>
 
-                    <SendEmail
-                        clicked={this.handleClickEmail}
-                        validate={this.handleEmailField} />
+                        </Form>
+
+                        <SendEmail
+                            clicked={this.handleClickEmail}
+                            validate={this.handleEmailField}/>
 
 
+                    </div>
                 </>
             );
         }
@@ -174,4 +177,4 @@ class Form extends React.Component {
 }
 
 
-export default Form;
+export default FormInput;
