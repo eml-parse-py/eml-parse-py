@@ -10,7 +10,7 @@ SMTP message sending functionality planned... *
 
 ## How to use:
 
-How to manipulate mails on CLI:
+How to manipulate mails on CLI (If you want to use web app scroll down to "To run Web application" section ):
 
 `` python app.py [OPTION] [FILE]``
 
@@ -54,7 +54,7 @@ Create HTML file comprised of the attributes found in the eml : ```--makehtml /p
 - npm init Make sure you're here =>'eml-parse-py/web_app/react/app/static/parse_py_ui/'
 - Node.JS installed on your device.
 
-### To run:
+### To run Web application:
 ##### BACKEND: 
 ```
  
