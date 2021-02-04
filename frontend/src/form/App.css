@@ -1,0 +1,16 @@
+.App {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0px 15px;
+    bottom: -5%;
+        transform: translate(-50%, 0);
+
+}
+
+#container {
+    margin: auto;
+    position: relative;
+
+}
