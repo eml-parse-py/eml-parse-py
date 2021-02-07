@@ -1,33 +1,49 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
-from email_functionality.SendMessage import SendMessage
-from eml_api import extract_header
-
 import json
+
+from flask import Flask, request, redirect, url_for, send_from_directory
+from flask_cors import cross_origin
+from werkzeug.utils import secure_filename
 import os
-from pathlib import Path
+from ..eml_api import msg_convert
+from ..eml_api import extract_header
+from backend.email_functionality.SendMessage import SendMessage
 
 app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
-CORS(app)
-eml_file = "message.eml"
+
+UPLOAD_LOCATION = 'emails'
+PERMITTED_EXTS = {'eml', 'msg'}
+
+
+def permitted_file_upload(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in PERMITTED_EXTS
 
 
 @app.route("/uploadfile", methods=["POST"])
 def handle_file_upload():
-    # os.path.abspath("message.eml")
-    file = request.files['file'].save(dst=eml_file)
-    return ""
+    file = request.files['file']
+    filetype = file.filename.rsplit('.', 1)[1]
+
+    if file and permitted_file_upload(file.filename):
+        filename = secure_filename(file)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        if filetype == 'msg':
+            msgcnvt = msg_convert.MsgConvert()
+            msgcnvt.msg_to_eml(file)
+
+    return redirect(url_for('header_construct', filename=file.filename))
 
 
-@app.route("/fetchmetadata", methods=["GET"])
-def header_construct():
-    file = "message.eml"
+@app.route("/fetchmetadata/<filename>", methods=["GET"])
+@cross_origin(origin='localhost', headers=['Access-Control-Allow-Origin:'])
+def header_construct(filename):
+    path = f'emails/{filename}'
     ex = extract_header.ExtractHeader()
-    headers = ex.header_gen(file)
-    kp_vals = ex.craft_html(file)
+    headers = ex.header_gen(path)
+    headers
+    kp_vals = ex.craft_html(path)
     kp_vals
-    return jsonify(headers)
+    return send_from_directory(directory='emails/', filename=filename)
 
 
 @app.route("/sendemail", methods=["POST"])
@@ -43,15 +59,12 @@ def send_email():
                 toAddr = request.form.get('text')
                 subject = params["subject"]
                 text = params["text"]
-                attachment = "eml_api\AnalysedHeaders.html"
+                attachment = "eml_api/AnalysedHeaders.html"
                 passwd = params["passwd"]
                 snd = SendMessage(fromAddr, toAddr, subject, text, attachment, passwd)
                 snd.send_msg()
-
     except FileExistsError as NoExist:
         print(NoExist)
-        ex = extract_header.ExtractHeader()
-        ex.craft_html(eml_file)
 
     return ""
 
