@@ -41,26 +41,3 @@ npm start
 
 #### Prerequisites: 
 - Ensure to populate ```SendEmailObjAttributes.json``` file under ```  backend\email_functionality``` omit the recipient field as user input is used, and I plan to use this field for something else in the future.
-
-
-## CLI options
-
-Navigate to ```backend/eml_api/cli_app.py``` to use these options.
-
-Options:
-
-Print the header from address ``` --hfrom /path/to/file.eml```
-
-Print the header to address ```- -hto /path/to/file.eml ```
-
-Print the subject of the Msg ``` --hsubject /path/to/file.eml```
-
-Print the Reply-to address of the Msg ``` --hreply-to /path/to/file.eml```
-
-Print the Msg ID of the Msg  ```--hmsg-id /path/to/file.eml ```
-
-Print the date of the Msg:  ```--hdate /path/to/file.eml ```
-
-Print the full Msg out: ``` --file /path/to/file.eml```
-
-Create HTML file comprised of the attributes found in the eml : ```--makehtml /path/to/file.eml:``` * CLI header generation to be added, web based is only possible at this time.
