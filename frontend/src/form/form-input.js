@@ -49,22 +49,16 @@ class FormInput extends React.Component {
 
 
         formData.append("file", this.state.file, this.state.file.name);
-        // formData.append('filename', );
 
         axios.post("/uploadfile", formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin': '*'
             }
         }).then(
             (response) => {
                 const res = response.data
-                this.setState({file: res})
-
-                axios.get("/fetchmetadata").then((response) => {
-                        const result = response.data
-                        this.setState({msg_data: result})
-                    }
-                );
+                this.setState({msg_data: res})
 
             }).catch((error) => {
                 if (error.response) {
