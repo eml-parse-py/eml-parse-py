@@ -14,12 +14,15 @@ iniconfig==1.1.1
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
+msg-parser==1.2.0
+olefile==0.46
 packaging==20.8
 pluggy==0.13.1
 py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.1
 requests==2.25.1
+selenium==3.141.0
 six==1.15.0
 toml==0.10.2
 urllib3==1.26.2
