@@ -7,9 +7,9 @@ const preFileInfo = (props) => {
         return (
             <div>
                 <h4>File Details:</h4>
-                <p>File Name: {props.file.name}</p>
-                <p>Content type / MIME Type: {props.file.type}</p>
-                <p>
+                <p id={"filename"}>File Name: {props.file.name}</p>
+                <p id={"mimetype"}>Content type / MIME Type: {props.file.type}</p>
+                <p id={"lastmtime"}>
                     Last Modified:{" "}
                     {props.file.lastModifiedDate.toDateString()}
                 </p>

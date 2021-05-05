@@ -5,20 +5,19 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-
 class Message:
 
-    def __init__(self, fromAddr, toAddr, subject, text, attachment):
-        self.fromAddr = fromAddr
-        self.toAddr = toAddr
+    def __init__(self, from_address, to_address, subject, text, attachment):
+        self.from_address = from_address
+        self.to_address = to_address
         self.subject = subject
         self.text = text
         self.attachment = attachment
 
-    def msg_builder(self):
+    def message_body_crafted(self):
         message = MIMEMultipart('alternative')
-        message["From"] = self.fromAddr
-        message["To"] = self.toAddr
+        message["From"] = self.from_address
+        message["To"] = self.to_address
         message["Subject"] = self.subject
         attach = self.attach_files()
         html = f"""
@@ -35,18 +34,18 @@ class Message:
         </body>
     </html>
         """
-        txt = MIMEText(self.text, "plain")
-        html_v = MIMEText(html, "html")
-        message.attach(txt)
-        message.attach(html_v)
+        msg_text = MIMEText(self.text, "plain")
+        msg_html = MIMEText(html, "html")
+        message.attach(msg_text)
+        message.attach(msg_html)
         message.attach(attach)
         return message
 
     def attach_files(self):
         with open(self.attachment, "rb") as attach:
-            part = MIMEBase("text", "html")
-            part.set_payload(attach.read())
-            encoders.encode_base64(part)
-            part.add_header("Content-Disposition",
-                            f"attachment; filename= {os.path.basename(self.attachment)}")
-            return part
+            msg_part = MIMEBase("text", "html")
+            msg_part.set_payload(attach.read())
+            encoders.encode_base64(msg_part)
+            msg_part.add_header("Content-Disposition",
+                                f"attachment; filename= {os.path.basename(self.attachment)}")
+            return msg_part

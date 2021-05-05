@@ -11,16 +11,18 @@ const SendEmail = (props) => {
 
         <div id={"Email-form"}>
 
-            <Form.Group>
+
+            <Form.Group controlId={"Email Address"}>
                 <Form.Label> Email address</Form.Label>
                 <Form.Control.Feedback
                     feedback="An email must be provided."
                     required>
 
                 </Form.Control.Feedback>
-                <Form.Control type="email" placeholder="yourmail@domain.com"
+                <Form.Control type="email" placeholder="example@domain.com"
                               required
-                              onChange={props.validate}/>
+                              onChange={props.validate}
+                />
 
             </Form.Group>
 
@@ -33,6 +35,7 @@ const SendEmail = (props) => {
                 Send email
             </Button>
         </div>
+
     );
 }
 

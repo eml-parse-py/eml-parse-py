@@ -48,7 +48,11 @@ class FormInput extends React.Component {
         event.preventDefault();
 
 
-        formData.append("file", this.state.file, this.state.file.name);
+        formData.append(
+            "file",
+            this.state.file,
+            this.state.file.name
+        );
 
         axios.post("/uploadfile", formData, {
             headers: {
@@ -60,29 +64,12 @@ class FormInput extends React.Component {
                 const res = response.data
                 this.setState({msg_data: res})
 
-            }).catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    console.log(error.request);
-
-                } else {
-                    console.log('Error', error.message);
-
-                }
-            }
-        );
+            });
 
     }
 
     handleEmailField(event) {
-        if (event.target.value.match("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|" +
-            "\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" +
-            "|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|" +
-            "[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|" +
-            "\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])$") != null && this.state.file != null) {
+        if (event.target.value.match("/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/") != null && this.state.file != null) {
             this.setState({recipient: event.target.value});
         } else {
             this.render(
@@ -107,8 +94,7 @@ class FormInput extends React.Component {
             }
         }).then(
             (response) => {
-                const res = response.data.toString()
-                console.log(res);
+                const res = response.data
                 this.setState({recipient: res})
 
             }).catch((error) => {
@@ -126,7 +112,6 @@ class FormInput extends React.Component {
             }
         );
 
-
     }
 
 
@@ -143,7 +128,6 @@ class FormInput extends React.Component {
             return (
                 <div id={"file-input"}>
 
-                    <h2 id={"App-heading"}> Eml Parse Py</h2>
 
                     <Form
                         validated={this.state.validate}

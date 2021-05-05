@@ -7,30 +7,30 @@ from .Message import Message
 
 class SendMessage(Message):
 
-    def __init__(self, fromAddr, toAddr, subject, text, attachment, passwd):
-        super().__init__(fromAddr, toAddr, subject, text, attachment)
+    def __init__(self, from_address, to_address, subject, text, attachment, passwd):
+        super().__init__(from_address, to_address, subject, text, attachment)
         self.passwd = passwd
 
     smtp_server = "smtp.gmail.com"
 
-    def send_msg(self):
+    def send_smtp_message(self):
         port = 587
         context = ssl.create_default_context()
 
         try:
-            svr = smtplib.SMTP(self.smtp_server, port)
-            svr.ehlo()
-            svr.starttls(context=context)
-            svr.ehlo()
-            svr.set_debuglevel(2)
-            svr.login(self.fromAddr, self.passwd)
-            svr.sendmail(
-                f"{self.fromAddr}", f"{self.toAddr}",
-                self.msg_builder().as_string()
+            smtp_conversation = smtplib.SMTP(self.smtp_server, port)
+            smtp_conversation.ehlo()
+            smtp_conversation.starttls(context=context)
+            smtp_conversation.ehlo()
+            smtp_conversation.set_debuglevel(2)
+            smtp_conversation.login(self.from_address, self.passwd)
+            smtp_conversation.sendmail(
+                self.from_address, self.to_address,
+                self.message_body_crafted().as_string()
             )
 
         except Exception as ex:
             print(ex)
             traceback.print_exc()
         finally:
-            svr.quit()
+            smtp_conversation.quit()
