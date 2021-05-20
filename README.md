@@ -35,7 +35,8 @@ npm start
 
 ```
 
-Populate ```SendEmailObjAttributes.json``` file under ```  backend\email_functionality``` omit the recipient field as user input is used, and I plan to use this field for something else in the future.
+Populate SendEmailObjAttributes.json file under `backend\email_functionalityomit the recipient field as user input is used, 
+I plan to use this field for something else in the future.
  
 Create an environment variable 
 Windows:
