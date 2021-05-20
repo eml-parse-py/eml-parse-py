@@ -1,6 +1,16 @@
 # Eml Parse Py 
 
-## A web based SMTP analysis tool that parses mail into a HTML file; and is attached to an email for reporting purposes.
+ A web based SMTP analysis tool that parses mail into a HTML file; and is attached to an email for reporting purposes.
+ 
+ 
+![Eml Parse Py](eml_parse_py.png)
+
+
+An example of the message headers being displayed:
+
+![Eml Parse Py Headers](eml_parse_py_headers.png)
+
+The end user must have an email inserted into the email address before uploading the .eml file. 
 
 ## Tech stack in use:
 
@@ -13,12 +23,19 @@
 - npm init Make sure you're here =>'frontend/'
 - Node.JS installed on your computer.
 
-# How to use:
+#### FRONTEND 
+
+```
+Start the application:
+npm start 
+```
 
 ## To run Web application:
 #### BACKEND: 
 
 ```
+
+Populate ```SendEmailObjAttributes.json``` file under ```  backend\email_functionality``` omit the recipient field as user input is used, and I plan to use this field for something else in the future.
  
 Create an environment variable 
 Windows:
@@ -32,12 +49,5 @@ For reference:
 export for *NIX systems/ MAC OS, and set for Windows
 ```
 
-#### FRONTEND 
 
-```
-Start the application:
-npm start 
-```
 
-#### Prerequisites: 
-- Ensure to populate ```SendEmailObjAttributes.json``` file under ```  backend\email_functionality``` omit the recipient field as user input is used, and I plan to use this field for something else in the future.
