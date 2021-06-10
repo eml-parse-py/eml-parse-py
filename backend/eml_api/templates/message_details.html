@@ -95,20 +95,12 @@
             <h3> Message headers:</h3>
 
             <table cellspacing="0" cellpadding="0">
-                {% for k, v in msg_headers %}
-                    <tr>
-                        <td>{{ k }}</td>
-                        <td>{{ v }}</td>
-                    </tr>
-                {% endfor %}
+            {{ message_headers }}
             </table>
         </div>
 
         </div>
 
-
     </section>
-
-
 
 {% endblock %}
